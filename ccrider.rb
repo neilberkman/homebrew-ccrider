@@ -9,22 +9,40 @@ class Ccrider < Formula
   license "MIT"
 
   depends_on "go" => :build
-  depends_on :macos
 
-  if Hardware::CPU.intel?
-    url "https://github.com/neilberkman/ccrider/releases/download/v0.1.0/ccrider_0.1.0_darwin_amd64.tar.gz"
-    sha256 "a58fa1227eaee0549908fa396bdbd32d8681e65ea9d8c4ed81d7eb3ff079496c"
+  on_macos do
+    if Hardware::CPU.intel?
+      url "https://github.com/neilberkman/ccrider/releases/download/v0.1.0/ccrider_0.1.0_darwin_amd64.tar.gz"
+      sha256 "e146811819af8399d8365b1344041c5263bec7cf241b2d4647db90c3aad3b1df"
 
-    def install
-      bin.install "ccrider"
+      def install
+        bin.install "ccrider"
+      end
+    end
+    if Hardware::CPU.arm?
+      url "https://github.com/neilberkman/ccrider/releases/download/v0.1.0/ccrider_0.1.0_darwin_arm64.tar.gz"
+      sha256 "001807c1c975bd1bbfe0cdb5ddd178aa5a4c0bcc339b3f9b4d75291667416278"
+
+      def install
+        bin.install "ccrider"
+      end
     end
   end
-  if Hardware::CPU.arm?
-    url "https://github.com/neilberkman/ccrider/releases/download/v0.1.0/ccrider_0.1.0_darwin_arm64.tar.gz"
-    sha256 "ba7f3279aba206c06efba50f5f60698ddd0c644bb51f5e239c34c89cd8d02817"
 
-    def install
-      bin.install "ccrider"
+  on_linux do
+    if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
+      url "https://github.com/neilberkman/ccrider/releases/download/v0.1.0/ccrider_0.1.0_linux_amd64.tar.gz"
+      sha256 "52b8eeb5b3788c1a5672cbed5755bf230c8ff514c8cec036d7dd74e9c5c4a3c0"
+      def install
+        bin.install "ccrider"
+      end
+    end
+    if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
+      url "https://github.com/neilberkman/ccrider/releases/download/v0.1.0/ccrider_0.1.0_linux_arm64.tar.gz"
+      sha256 "e7019f34d163015c335c26f12ff2ed54f45c5c4e9871b8159c0416ec8e5fca98"
+      def install
+        bin.install "ccrider"
+      end
     end
   end
 
