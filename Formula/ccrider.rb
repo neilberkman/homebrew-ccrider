@@ -5,22 +5,41 @@
 class Ccrider < Formula
   desc "Search, browse, and resume your Claude Code sessions"
   homepage "https://github.com/neilberkman/ccrider"
-  version "0.1.0"
+  version "0.1.1"
   license "MIT"
 
+  depends_on "go" => :build
+
   on_macos do
-    if Hardware::CPU.arm?
-      url "https://github.com/neilberkman/ccrider/releases/download/v0.1.0/ccrider_0.1.0_darwin_arm64.tar.gz"
-      sha256 "PLACEHOLDER"
+    if Hardware::CPU.intel?
+      url "https://github.com/neilberkman/ccrider/releases/download/v0.1.1/ccrider_0.1.1_darwin_amd64.tar.gz"
+      sha256 "020986bd97fe6ca8323a3382dd388134ca7930a3231ca3271406a2357192d5f9"
 
       def install
         bin.install "ccrider"
       end
     end
-    if Hardware::CPU.intel?
-      url "https://github.com/neilberkman/ccrider/releases/download/v0.1.0/ccrider_0.1.0_darwin_amd64.tar.gz"
-      sha256 "PLACEHOLDER"
+    if Hardware::CPU.arm?
+      url "https://github.com/neilberkman/ccrider/releases/download/v0.1.1/ccrider_0.1.1_darwin_arm64.tar.gz"
+      sha256 "e4642664a94e49f2a154c0899532a09b476948bcd663dd09440c7d5ea38aae26"
 
+      def install
+        bin.install "ccrider"
+      end
+    end
+  end
+
+  on_linux do
+    if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
+      url "https://github.com/neilberkman/ccrider/releases/download/v0.1.1/ccrider_0.1.1_linux_amd64.tar.gz"
+      sha256 "28d8d731affd30e664366470eb45930ca24d09e47bdb6ed9a588d0b85c8b6791"
+      def install
+        bin.install "ccrider"
+      end
+    end
+    if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
+      url "https://github.com/neilberkman/ccrider/releases/download/v0.1.1/ccrider_0.1.1_linux_arm64.tar.gz"
+      sha256 "9c8d97291c5f9fec03738668d27e808010da2f7fe459866caa53df5412ed51bc"
       def install
         bin.install "ccrider"
       end
